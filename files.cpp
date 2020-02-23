@@ -36,9 +36,15 @@ void processFile(const string& path, vector<Student> students) {
 
 	while (getline(stream, record)) {
 		string* elements = splitRecord(record);
-		// TODO
+		
+		double avgGrade = 0;
+		for (int i = 1; i < 6; i++) { // TODO: get rid of magic numbers
+			avgGrade += stoi(elements[i]);
+		}
+		avgGrade /= 5;
 
-		//students.push_back(Student(elements[0], avgGrade)); 
+		Student s(elements[0], avgGrade);
+		students.push_back(Student(elements[0], avgGrade));
 		delete[] elements;
 	}
 
