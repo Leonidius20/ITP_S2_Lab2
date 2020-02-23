@@ -3,12 +3,13 @@
 #include <filesystem>
 #include <fstream>
 #include <iostream>
+#include <iomanip>
 #include "files.h"
 
 using namespace std;
 using namespace std::filesystem;
 
-void processFile(const string& path, vector<Student> students);
+void processFile(const string& path, vector<Student>& students);
 void splitRecord(const string &str, string* words);
 
 vector<Student> processDirectory(const string& path) {
@@ -23,7 +24,8 @@ vector<Student> processDirectory(const string& path) {
 	return students;
 }
 
-void processFile(const string& path, vector<Student> students) {
+void processFile(const string& path, vector<Student>& students) {
+	setlocale(LC_ALL, "russian");
 	ifstream stream(path);
 	if (!stream.is_open()) {
 		cerr << "Failed to read file " << path;
@@ -54,7 +56,18 @@ void processFile(const string& path, vector<Student> students) {
 }
 
 void writeStudentsToFile(const std::vector<Student> &students, const std::string &path) {
-	// TODO
+	ofstream stream(path);
+	if (!stream.is_open()) {
+		cerr << "Couldn't write the data" << endl;
+		return;
+	}
+
+	for (Student student : students) {
+		stream << student.getLastName() << "," 
+			<< setprecision(3) << student.getAverageGrade() << endl;
+	}
+
+	stream.close();
 }
 
 void splitRecord(const string &str, string* words) {
