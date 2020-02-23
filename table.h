@@ -3,4 +3,4 @@
 #include <vector>
 #include "student.h"
 
-std::vector<Student> getScholarshipRecievers(const std::vector<Student>& students);
+std::vector<Student> getScholarshipReceivers(const std::vector<Student> &students);
