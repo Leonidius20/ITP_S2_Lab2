@@ -11,16 +11,16 @@ int main() {
     cout << "Path to directory: ";
     cin >> path;
 
-	try {
-		auto allStudents = processDirectory(path);
-		auto studentsReceivingScholarship = getScholarshipReceivers(allStudents);
+    try {
+	    auto allStudents = processDirectory(path);
+	    auto studentsReceivingScholarship = getScholarshipReceivers(allStudents);
 
-		double minGradeForScholarship = getMinimumAvgGradeForScholarship(studentsReceivingScholarship);
-		printf("Minimum average grade to receive scholarship: %.3f", minGradeForScholarship);
+	    double minGradeForScholarship = getMinimumAvgGradeForScholarship(studentsReceivingScholarship);
+	    printf("Minimum average grade to receive scholarship: %.3f", minGradeForScholarship);
 
-		writeStudentsToFile(studentsReceivingScholarship, "rating.csv");
-	}
-	catch (filesystem::filesystem_error e) {
-		cerr << "Couldn't process the specified directory" << endl;
-	}
+	    writeStudentsToFile(studentsReceivingScholarship, "rating.csv");
+    }
+    catch (filesystem::filesystem_error e) {
+	    cerr << "Couldn't process the specified directory" << endl;
+    }
 }
