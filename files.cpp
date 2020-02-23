@@ -2,13 +2,14 @@
 #include <string>
 #include <filesystem>
 #include <fstream>
+#include <iostream>
 #include "files.h"
 
 using namespace std;
 using namespace std::filesystem;
 
 void processFile(const string& path, vector<Student> students);
-string* splitRecord(string str);
+string* splitRecord(const string &str);
 
 vector<Student> processDirectory(const string& path) {
 	vector<Student> students;
@@ -24,27 +25,32 @@ vector<Student> processDirectory(const string& path) {
 
 void processFile(const string& path, vector<Student> students) {
 	ifstream stream(path);
-	int records;
-	stream >> records;
-
+	if (!stream.is_open()) {
+		cerr << "Failed to read file " << path;
+		return;
+	}
+	
 	string record;
-	while (stream.peek() != EOF) {
-		getline(stream, record);
+	getline(stream, record);
+	int records = stoi(record); // useless?
+
+	while (getline(stream, record)) {
 		string* elements = splitRecord(record);
-		
+		// TODO
 
 		//students.push_back(Student(elements[0], avgGrade)); 
+		delete[] elements;
 	}
 
 	stream.close();
 }
 
-void writeStudentsToFile(const std::vector<Student>& students, const std::string& path) {
+void writeStudentsToFile(const std::vector<Student> &students, const std::string &path) {
 	// TODO
 }
 
-string* splitRecord(string str) {
-	string words[7];
+string* splitRecord(const string &str) {
+	string* words = new string[7];
 	int offset = 0; // a starting position from which to look for 
 					// the next occurence of 'delimiter'
 	int index;      // index of a 'delimiter' char in a string
