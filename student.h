@@ -8,7 +8,6 @@ class Student {
 	double avgGrade;
 
 public:
-	Student() = default;
 	Student(std::string lastName, int grades[5]);
 	double getAverageGrade() { return avgGrade; }
 };
