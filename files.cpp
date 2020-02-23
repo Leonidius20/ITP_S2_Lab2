@@ -48,7 +48,9 @@ void processFile(const string& path, vector<Student>& students) {
 		}
 		avgGrade /= NUMBER_OF_GRADES;
 
-		students.push_back(Student(elements[0], avgGrade));
+		if (elements[NUMBER_OF_FIELDS - 1] == "TRUE") {
+            students.push_back(Student(elements[0], avgGrade));
+        }
 	}
 
 	stream.close();
