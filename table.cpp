@@ -16,3 +16,7 @@ std::vector<Student> getScholarshipReceivers(const std::vector<Student> &student
 bool compareStudentsForScholarship(const Student &first, const Student &second) {
     return first.getAverageGrade() > second.getAverageGrade();
 }
+
+double getMinimumAvgGradeForScholarship(const std::vector<Student> &scholarshipReceivers) {
+    return scholarshipReceivers.back().getAverageGrade();
+}
