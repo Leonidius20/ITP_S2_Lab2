@@ -4,11 +4,14 @@
 
 class Student {
 private:
-    const std::string &lastName;
-    const double avgGrade;
+    std::string lastName;
+    double avgGrade;
 
 public:
-    Student(const std::string &lastName, const double avgGrade) : lastName(lastName), avgGrade(avgGrade) {}
+    Student(const std::string &lastName, const double avgGrade) {
+        this->lastName = lastName;
+        this->avgGrade = avgGrade;
+    }
 
     const std::string &getLastName() const { return lastName; }
 
