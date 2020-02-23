@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <filesystem>
 #include "files.h"
 #include "table.h"
 
@@ -10,11 +11,16 @@ int main() {
     cout << "Path to directory: ";
     cin >> path;
 
-    auto allStudents = processDirectory(path);
-    auto studentsReceivingScholarship = getScholarshipReceivers(allStudents);
+	try {
+		auto allStudents = processDirectory(path);
+		auto studentsReceivingScholarship = getScholarshipReceivers(allStudents);
 
-    double minGradeForScholarship = getMinimumAvgGradeForScholarship(studentsReceivingScholarship);
-    printf("Minimum average grade to receive scholarship: %.3f", minGradeForScholarship);
+		double minGradeForScholarship = getMinimumAvgGradeForScholarship(studentsReceivingScholarship);
+		printf("Minimum average grade to receive scholarship: %.3f", minGradeForScholarship);
 
-    writeStudentsToFile(studentsReceivingScholarship, "rating.csv");
+		writeStudentsToFile(studentsReceivingScholarship, "rating.csv");
+	}
+	catch (filesystem::filesystem_error e) {
+		cerr << "Couldn't process the specified directory" << endl;
+	}
 }

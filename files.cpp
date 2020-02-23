@@ -31,7 +31,7 @@ vector<Student> processDirectory(const string& path) {
 void processFile(const string& path, vector<Student>& students) {
 	ifstream stream(path);
 	if (!stream.is_open()) {
-		cerr << "Failed to read file " << path;
+		cerr << "Failed to read file " << path << endl;
 		return;
 	}
 
@@ -42,15 +42,15 @@ void processFile(const string& path, vector<Student>& students) {
 	while (getline(stream, record)) {
 		splitRecord(record, elements);
 
+		if (elements[NUMBER_OF_FIELDS - 1] == "TRUE") continue;
+
 		double avgGrade = 0;
 		for (int i = 1; i < NUMBER_OF_FIELDS - 1; i++) {
 			avgGrade += stoi(elements[i]);
 		}
 		avgGrade /= NUMBER_OF_GRADES;
 
-		if (elements[NUMBER_OF_FIELDS - 1] == "TRUE") {
-            students.push_back(Student(elements[0], avgGrade));
-        }
+		students.push_back(Student(elements[0], avgGrade));
 	}
 
 	stream.close();
