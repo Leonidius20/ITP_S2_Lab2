@@ -34,14 +34,14 @@ void processFile(const string& path, vector<Student>& students) {
 		cerr << "Failed to read file " << path;
 		return;
 	}
-	
+
 	string record;
 	getline(stream, record); // discarding number of students
 	string elements[NUMBER_OF_FIELDS];
 
 	while (getline(stream, record)) {
 		splitRecord(record, elements);
-		
+
 		double avgGrade = 0;
 		for (int i = 1; i < NUMBER_OF_FIELDS - 1; i++) {
 			avgGrade += stoi(elements[i]);
@@ -62,7 +62,7 @@ void writeStudentsToFile(const std::vector<Student> &students, const std::string
 	}
 
 	for (Student student : students) {
-		stream << student.getLastName() << "," 
+		stream << student.getLastName() << ","
 			<< setprecision(PRECISION) << student.getAverageGrade() << endl;
 	}
 
@@ -70,8 +70,8 @@ void writeStudentsToFile(const std::vector<Student> &students, const std::string
 }
 
 void splitRecord(const string &str, string* words) {
-	int offset = 0; // a starting position from which to look for 
-					// the next occurence of the delimiter
+	int offset = 0; // a starting position from which to look for
+					// the next occurrence of the delimiter
 	int index;      // index of the delimiter in the string
 	for (int i = 0; i < NUMBER_OF_FIELDS; i++) {
 		index = str.find(',', offset);
