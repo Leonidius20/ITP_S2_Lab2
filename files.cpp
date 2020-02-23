@@ -19,7 +19,7 @@ const int PRECISION = 3;
 vector<Student> processDirectory(const string& path) {
 	vector<Student> students;
 
-	for (directory_entry entry : directory_iterator(path)) {
+	for (const directory_entry& entry : directory_iterator(path)) {
 		if (!entry.is_directory()) {
 			processFile(entry.path().string(), students);
 		}
@@ -63,7 +63,7 @@ void writeStudentsToFile(const std::vector<Student> &students, const std::string
 		return;
 	}
 
-	for (Student student : students) {
+	for (const Student& student : students) {
 		stream << student.getLastName() << ","
 			<< setprecision(PRECISION) << student.getAverageGrade() << endl;
 	}
