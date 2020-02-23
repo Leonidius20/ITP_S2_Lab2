@@ -152,7 +152,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="files.cpp" />
-    <ClCompile Include="ITP_S2_Lab2.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="student.cpp" />
     <ClCompile Include="table.cpp" />
   </ItemGroup>
