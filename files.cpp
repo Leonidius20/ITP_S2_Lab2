@@ -9,7 +9,7 @@ using namespace std;
 using namespace std::filesystem;
 
 void processFile(const string& path, vector<Student> students);
-string* splitRecord(const string &str);
+void splitRecord(const string &str, string* words);
 
 vector<Student> processDirectory(const string& path) {
 	vector<Student> students;
@@ -33,9 +33,10 @@ void processFile(const string& path, vector<Student> students) {
 	string record;
 	getline(stream, record);
 	int records = stoi(record); // useless?
+	string elements[7];
 
 	while (getline(stream, record)) {
-		string* elements = splitRecord(record);
+		splitRecord(record, elements);
 		
 		double avgGrade = 0;
 		for (int i = 1; i < 6; i++) { // TODO: get rid of magic numbers
@@ -44,10 +45,11 @@ void processFile(const string& path, vector<Student> students) {
 		avgGrade /= 5;
 
 		Student s(elements[0], avgGrade);
-		students.push_back(Student(elements[0], avgGrade));
-		delete[] elements;
+		cout << s.getLastName() << ", " << s.getAverageGrade() << endl; // for debug
+		students.push_back(s);
 	}
 
+	cout << endl; // for debug
 	stream.close();
 }
 
@@ -55,8 +57,7 @@ void writeStudentsToFile(const std::vector<Student> &students, const std::string
 	// TODO
 }
 
-string* splitRecord(const string &str) {
-	string* words = new string[7];
+void splitRecord(const string &str, string* words) {
 	int offset = 0; // a starting position from which to look for 
 					// the next occurence of 'delimiter'
 	int index;      // index of a 'delimiter' char in a string
@@ -65,5 +66,4 @@ string* splitRecord(const string &str) {
 		words[i] = str.substr(offset, (index - offset));
 		offset = index + 1;
 	}
-	return words;
 }
