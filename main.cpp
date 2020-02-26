@@ -16,7 +16,7 @@ int main() {
 	    auto studentsReceivingScholarship = getScholarshipReceivers(allStudents);
 
 	    double minGradeForScholarship = getMinimumAvgGradeForScholarship(studentsReceivingScholarship);
-	    printf("Minimum average grade to receive scholarship: %.3f", minGradeForScholarship);
+	    printf("\nMinimum average grade to receive scholarship: %.3f", minGradeForScholarship);
 
 	    writeStudentsToFile(studentsReceivingScholarship, "rating.csv");
     }

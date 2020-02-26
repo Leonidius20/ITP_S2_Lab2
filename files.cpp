@@ -58,16 +58,18 @@ void processFile(const string& path, vector<Student>& students, ofstream& bigfil
 	while (getline(stream, record)) {
 		splitRecord(record, elements);
         bigfile << record << endl;
-
-		if (elements[NUMBER_OF_FIELDS - 1] == "TRUE") continue;
+        cout << record << ",";
 
 		double avgGrade = 0;
 		for (int i = 1; i < NUMBER_OF_FIELDS - 1; i++) {
 			avgGrade += stoi(elements[i]);
 		}
 		avgGrade /= NUMBER_OF_GRADES;
+		cout << setprecision(PRECISION) << avgGrade << endl;
 
-		students.push_back(Student(elements[0], avgGrade));
+        if (elements[NUMBER_OF_FIELDS - 1] == "FALSE") {
+            students.emplace_back(elements[0], avgGrade);
+        }
 	}
 
 	stream.close();
