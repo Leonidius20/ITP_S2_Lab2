@@ -9,7 +9,7 @@
 using namespace std;
 using namespace std::filesystem;
 
-void processFile(const string& path, vector<Student>& students);
+void processFile(const string& path, vector<Student>& students, ofstream &bigfile);
 void splitRecord(const string &str, string* words);
 
 const int NUMBER_OF_FIELDS = 7;
@@ -19,17 +19,33 @@ const int PRECISION = 3;
 vector<Student> processDirectory(const string& path) {
 	vector<Student> students;
 
+    int counter = 0;
+
+    for (const directory_entry& entry : directory_iterator(path)) {
+        if (!entry.is_directory()) {
+            ifstream file(entry.path().string());
+            int studentCount;
+            file >> studentCount;
+            counter += studentCount;
+        }
+    }
+
+    ofstream bigfile("bigfile.csv");
+    bigfile << counter << endl;
+
 	for (const directory_entry& entry : directory_iterator(path)) {
 		if (!entry.is_directory()) {
-			processFile(entry.path().string(), students);
+			processFile(entry.path().string(), students, bigfile);
 		}
 	}
+
+    bigfile.close();
 
 	return students;
 }
 
-void processFile(const string& path, vector<Student>& students) {
-	ifstream stream(path);
+void processFile(const string& path, vector<Student>& students, ofstream& bigfile) {
+    ifstream stream(path);
 	if (!stream.is_open()) {
 		cerr << "Failed to read file " << path << endl;
 		return;
@@ -41,6 +57,7 @@ void processFile(const string& path, vector<Student>& students) {
 
 	while (getline(stream, record)) {
 		splitRecord(record, elements);
+        bigfile << record << endl;
 
 		if (elements[NUMBER_OF_FIELDS - 1] == "TRUE") continue;
 
