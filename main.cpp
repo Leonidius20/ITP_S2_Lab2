@@ -3,13 +3,17 @@
 #include <filesystem>
 #include "files.h"
 #include "table.h"
+#if _WIN32
 #include <windows.h>
+#endif
 
 using namespace std;
 
 int main() {
+#if _WIN32
     SetConsoleOutputCP(CP_UTF8);
     SetConsoleCP(CP_UTF8);
+#endif
 
     string path;
     cout << "Path to directory: ";
