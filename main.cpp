@@ -3,10 +3,14 @@
 #include <filesystem>
 #include "files.h"
 #include "table.h"
+#include <windows.h>
 
 using namespace std;
 
 int main() {
+    SetConsoleOutputCP(CP_UTF8);
+    SetConsoleCP(CP_UTF8);
+
     string path;
     cout << "Path to directory: ";
     cin >> path;
@@ -20,7 +24,7 @@ int main() {
 
         writeStudentsToFile(studentsReceivingScholarship, "rating.csv");
     }
-    catch (filesystem::filesystem_error e) {
+    catch (filesystem::filesystem_error &e) {
         cerr << "Couldn't process the specified directory" << endl;
     }
 }
